@@ -1,9 +1,12 @@
-const express = require('express');
+import express from 'express';
+import { Server } from 'http';
+import { Server as SocketIOServer } from 'socket.io';
+import path from 'path';
+import crypto from 'crypto';
+
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const path = require('path');
-const crypto = require('crypto');
+const http = new Server(app);
+const io = new SocketIOServer(http);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
