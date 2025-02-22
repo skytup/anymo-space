@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anymo Chat Room</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: #128C7E;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .auth-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            color: #128C7E;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: #667781;
+        }
+
+        .recent-rooms {
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .recent-room-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .recent-room-item:hover {
+            background: #e9ecef;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: #128C7E;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #E8E8E8;
+            color: #128C7E;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #667781;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #667781;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #128C7E;
+        }
+
+        .hint {
+            font-size: 0.85rem;
+            color: #667781;
+            margin-top: 0.25rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #dcf8c6;
+            color: #128C7E;
+        }
+
+        .alert-error {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .clear-data {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .clear-data button {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>Anymo Chat Room</h1>
+    </div>
+
+    <div class="container">
+        <div class="auth-container">
+            <div class="logo">
+                <h1><i class="fas fa-comments"></i></h1>
+                <p>Anonymous. Secure. Simple.</p>
+            </div>
+
+            <div id="recentRooms" class="recent-rooms">
+                <h3>Recent Rooms</h3>
+                <!-- Recent rooms will be populated here -->
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="showCreateRoom()">
+                    <i class="fas fa-plus"></i> Create Room
+                </button>
+                <button class="btn btn-secondary" onclick="showJoinRoom()">
+                    <i class="fas fa-sign-in-alt"></i> Join Room
+                </button>
+            </div>
+
+            <div class="clear-data">
+                <button onclick="clearLocalStorage()">
+                    <i class="fas fa-trash"></i> Clear Recent Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="createRoomModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideModals()">&times;</button>
+            <h2>Create New Room</h2>
+            <div class="alert alert-success" id="createSuccess"></div>
+            <div class="form-group">
+                <label>Room Name</label>
+                <input type="text" id="roomName" placeholder="Enter room name">
+                <div class="hint">Choose a memorable name for your room</div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="roomPassword" placeholder="Enter room password">
+                <div class="hint">Set a secure password to protect your room</div>
+            </div>
+            <button class="btn btn-primary" onclick="createRoom()">Create Room</button>
+        </div>
+    </div>
+
+    <!-- Join Room Modal -->
+    <div id="joinRoomModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideModals()">&times;</button>
+            <h2>Join Room</h2>
+            <div class="alert alert-error" id="joinError"></div>
+            <div class="form-group">
+                <label>Room ID</label>
+                <input type="text" id="roomId" placeholder="Enter room ID">
+                <div class="hint">Enter the room ID shared with you</div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="joinPassword" placeholder="Enter room password">
+                <div class="hint">Enter the room password</div>
+            </div>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="username" placeholder="Enter your name">
+                <div class="hint">Choose a name to identify yourself in the chat</div>
+            </div>
+            <button class="btn btn-primary" onclick="verifyAndJoin()">Join Room</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // Local Storage Management
+        function saveToLocalStorage(roomData) {
+            let rooms = JSON.parse(localStorage.getItem('recentRooms') || '[]');
+            rooms = rooms.filter(room => room.roomId !== roomData.roomId);
+            rooms.unshift({
+                ...roomData,
+                timestamp: Date.now()
+            });
+            rooms = rooms.slice(0, 5); // Keep only 5 most recent rooms
+            localStorage.setItem('recentRooms', JSON.stringify(rooms));
+            displayRecentRooms();
+        }
+        function displayRecentRooms() {
+            const recentRooms = JSON.parse(localStorage.getItem('recentRooms') || '[]');
+            const container = document.getElementById('recentRooms');
+
+            if (recentRooms.length > 0) {
+                container.style.display = 'block';
+                container.innerHTML = '<h3>Recent Rooms</h3>';
+
+                recentRooms.forEach(room => {
+                    const roomElement = document.createElement('div');
+                    roomElement.className = 'recent-room-item';
+                    roomElement.innerHTML = `
+                        <div>
+                            <strong>${room.roomName}</strong>
+                            <div style="font-size: 0.8rem; color: #667781;">ID: ${room.roomId}</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="rejoinRoom('${room.roomId}', '${room.roomName}', '${room.password}')">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </button>
+                    `;
+                    container.appendChild(roomElement);
+                });
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function clearLocalStorage() {
+            if (confirm('Are you sure you want to clear all recent room data?')) {
+                localStorage.removeItem('recentRooms');
+                displayRecentRooms();
+            }
+        }
+
+        function showCreateRoom() {
+            document.getElementById('createRoomModal').style.display = 'flex';
+        }
+
+        function showJoinRoom() {
+            document.getElementById('joinRoomModal').style.display = 'flex';
+        }
+
+        function hideModals() {
+            document.getElementById('createRoomModal').style.display = 'none';
+            document.getElementById('joinRoomModal').style.display = 'none';
+            // Clear error messages
+            document.getElementById('joinError').style.display = 'none';
+            document.getElementById('createSuccess').style.display = 'none';
+        }
+
+        function createRoom() {
+            const roomName = document.getElementById('roomName').value.trim();
+            const password = document.getElementById('roomPassword').value.trim();
+
+            if (!roomName || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            socket.emit('createRoom', { roomName, password });
+        }
+
+        function verifyAndJoin() {
+            const roomId = document.getElementById('roomId').value.trim();
+            const password = document.getElementById('joinPassword').value.trim();
+            const username = document.getElementById('username').value.trim();
+
+            if (!roomId || !password || !username) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Store username in localStorage
+            localStorage.setItem('username', username);
+
+            // First verify the password
+            socket.emit('verifyPassword', { 
+                roomId, 
+                password,
+                username // Include username in verification
+            });
+        }
+
+        function rejoinRoom(roomId, roomName, password) {
+            const username = prompt('Enter your name to rejoin the room:');
+            if (username) {
+                socket.emit('joinRoom', { roomId, username, password });
+                saveToLocalStorage({ roomId, roomName, password, username });
+            }
+        }
+
+        function showError(message) {
+            const errorAlert = document.getElementById('joinError');
+            errorAlert.style.display = 'block';
+            errorAlert.textContent = message;
+            setTimeout(() => {
+                errorAlert.style.display = 'none';
+            }, 5000);
+        }
+
+        // Socket event listeners
+        socket.on('roomCreated', (data) => {
+            const successAlert = document.getElementById('createSuccess');
+            successAlert.style.display = 'block';
+            successAlert.innerHTML = `
+                Room created successfully!<br>
+                Room ID: ${data.roomId}<br>
+                (Copied to clipboard)
+            `;
+
+            // Save to local storage
+            saveToLocalStorage({
+                roomId: data.roomId,
+                roomName: data.roomName,
+                password: document.getElementById('roomPassword').value
+            });
+
+            // Copy room ID to clipboard
+            navigator.clipboard.writeText(data.roomId);
+
+            setTimeout(() => {
+                hideModals();
+                window.location.href = `/room.html?id=${data.roomId}`;
+            }, 2000);
+        });
+
+        socket.on('passwordValid', (data) => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('joinPassword').value;
+
+            // Save room data to localStorage
+            saveToLocalStorage({
+                roomId: data.roomId,
+                roomName: data.roomName,
+                password: password,
+                username: username
+            });
+
+            // Redirect to chat room
+            window.location.href = `/room.html?id=${data.roomId}`;
+        });
+
+        socket.on('passwordError', (data) => {
+            showError(data.message);
+        });
+
+        socket.on('joined', (data) => {
+            const roomId = new URLSearchParams(window.location.search).get('id');
+            window.location.href = `/room.html?id=${roomId}`;
+        });
+
+        socket.on('error', (data) => {
+            showError(data.message);
+        });
+
+        // Initialize
+        displayRecentRooms();
+
+        // Check for room ID in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomId = urlParams.get('id');
+        if (roomId) {
+            document.getElementById('roomId').value = roomId;
+            showJoinRoom();
+        }
+    </script>
+</body>
+
+</html>
