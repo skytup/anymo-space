@@ -233,7 +233,7 @@
 
             .sidebar {
                 position: fixed;
-                left: -300px;
+                left: -100%;
                 top: 0;
                 height: 100%;
                 transition: left 0.3s ease;
@@ -289,7 +289,8 @@
                 transform: scale(1);
             }
         }
-        .btn{
+
+        .btn {
             cursor: pointer;
         }
     </style>
@@ -404,25 +405,17 @@
             messages.appendChild(messageDiv);
 
             // Handle unread messages
-            if (!isPageVisible && type === 'received') {
-                unreadMessages++;
-                updateUnreadBadge();
-            }
+            // if (!isPageVisible && type === 'received') {
+            //     unreadMessages++;
+            //     updateUnreadBadge();
+            // }
 
             // Auto scroll if user is at bottom
             const isAtBottom = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
-            if (isAtBottom) {
-                // messagesContainer.scrollTo({
-                //     top: messagesContainer.scrollHeight,
-                //     behavior: 'smooth'
-                // });
-            } else {
-                messagesContainer.scrollTo({
-                    top: messagesContainer.scrollHeight,
-                    behavior: 'smooth'
-                });
-                // showNewMessageIndicator();
-            }
+            messagesContainer.scrollTo({
+                top: messagesContainer.scrollHeight,
+                behavior: 'smooth'
+            });
         }
 
         // function updateUnreadBadge() {
@@ -453,6 +446,12 @@
             }
         }
 
+        // Send message on Enter key press
+        document.getElementById('messageInput').addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
         function handleTyping() {
             if (!lastTypingTime) {
                 socket.emit('typing', { roomId });
@@ -575,9 +574,19 @@
         initializeRoom();
 
         function leaveRoom() {
-            socket.emit('leaveRoom', { roomId });
-            window.location.href = '/index.html';
+            if (window.confirm('Are you sure you want to leave the room?')) {
+                socket.emit('leaveRoom', { roomId });
+                window.location.href = '/index.html';
+
+            }
         }
+
+        // Send message on Enter key press
+        document.getElementById('messageInput').addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
     </script>
 </body>
 
