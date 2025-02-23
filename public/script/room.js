@@ -1,3 +1,4 @@
+// import notify from '/script/notify.js';
 const socket = io();
 const roomId = new URLSearchParams(window.location.search).get('id');
 const messagesContainer = document.getElementById('messages');
@@ -66,9 +67,10 @@ function addMessage(data, type = 'received') {
     if (!isPageVisible && type === 'received') {
         unreadMessages++;
         // updateUnreadBadge();
-        (new Audio('/tone/received.mp3')).play();
-    } else if (type === 'received') {
         (new Audio('/tone/swift.mp3')).play();
+        notify(localStorage.getItem('user'), 'New message alert');
+    } else if (type === 'received') {
+        (new Audio('/tone/received.mp3')).play();
     }
 
     // Auto scroll if user is at bottom
@@ -92,7 +94,7 @@ function handleVisibilityChange() {
     isPageVisible = !document.hidden;
     if (isPageVisible) {
         unreadMessages = 0;
-        updateUnreadBadge();
+        // updateUnreadBadge();
     }
 }
 
@@ -172,11 +174,21 @@ socket.on('userList', (data) => {
 
 socket.on('userJoined', (data) => {
     addSystemMessage(`${data.username} joined the chat`);
+    console.log(data.username + ' joined the chat');
 });
 
 socket.on('userLeft', (data) => {
     addSystemMessage(`${data.username} left the chat`);
+    console.log(data.username + ' left the chat');
 });
+
+function addSystemMessage(message) {
+    const systemMessage = document.createElement('div');
+    systemMessage.classList.add('system-message'); // Add a class to style the message
+    systemMessage.textContent = message;
+
+    messagesContainer.appendChild(systemMessage);
+}
 
 // Handle page unload
 window.onbeforeunload = () => {

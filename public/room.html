@@ -41,7 +41,7 @@
             <!-- Messages will be populated here -->
         </div>
         <div class="chat-input">
-            <input type="text" id="messageInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)"
+            <input type="text" id="messageInput" placeholder="Type a message..." 
                 oninput="handleTyping()">
             <button onclick="sendMessage()">
                 <i class="fas fa-paper-plane"></i>
@@ -58,6 +58,13 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/script/room.js"></script>
+    <script type="module" src="./script/notify.js"></script>
+    <script>
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+    </script>
 </body>
 
 </html>
