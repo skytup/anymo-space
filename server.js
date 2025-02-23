@@ -5,7 +5,7 @@ import path from 'path';
 import crypto from 'crypto';
 
 // Use import.meta.url to determine the directory of the current module
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(new URL(import.meta.url).pathname).replace(/^\/([a-zA-Z]):\//, '$1:/');
 
 const app = express();
 const http = new Server(app);
@@ -13,6 +13,11 @@ const io = new SocketIOServer(http);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+// Add a root route to serve the index.html file
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 // Store room information in memory
 const rooms = new Map();
