@@ -63,10 +63,11 @@ function addMessage(data, type = 'received') {
     messages.appendChild(messageDiv);
 
     // Handle unread messages
-    // if (!isPageVisible && type === 'received') {
-    //     unreadMessages++;
-    //     updateUnreadBadge();
-    // }
+    if (!isPageVisible && type === 'received') {
+        unreadMessages++;
+        // updateUnreadBadge();
+        (new Audio('/tone/swift.mp3')).play();
+    }
 
     // Auto scroll if user is at bottom
     const isAtBottom = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
@@ -161,7 +162,6 @@ socket.on('joined', (data) => {
 
 socket.on('message', (data) => {
     addMessage(data, data.username === username ? 'sent' : 'received');
-    (new Audio('/tone/swift.mp3')).play();
 });
 
 socket.on('userList', (data) => {
