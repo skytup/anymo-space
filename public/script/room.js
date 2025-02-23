@@ -240,7 +240,8 @@ socket.on('joined', (data) => {
 
 socket.on('error', (data) => {
     alert(data.message);
-    window.location.href = '/index.html';
+    localStorage.removeItem('recentRooms');
+    window.location.href = '/';
 });
 
 // Initialize the room when page loads
