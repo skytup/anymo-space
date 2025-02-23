@@ -66,6 +66,8 @@ function addMessage(data, type = 'received') {
     if (!isPageVisible && type === 'received') {
         unreadMessages++;
         // updateUnreadBadge();
+        (new Audio('/tone/received.mp3')).play();
+    } else if (type === 'received') {
         (new Audio('/tone/swift.mp3')).play();
     }
 
