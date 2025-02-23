@@ -462,10 +462,7 @@
         socket.on('passwordError', (data) => {
             showError(data.message);
         });
-        socket.on('roomError', (data) => {
-            showError(data.message);
-            clearLocalStorage();
-        });
+        
         socket.on('joined', (data) => {
             const roomId = new URLSearchParams(window.location.search).get('id');
             window.location.href = `/room.html?id=${roomId}`;
@@ -473,6 +470,7 @@
 
         socket.on('error', (data) => {
             showError(data.message);
+            clearLocalStorage();
         });
 
         // Initialize
