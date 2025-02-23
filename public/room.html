@@ -5,13 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anymo Chat | Skytup</title>
-    <meta name="description" content="Anymo Space - Anonymous. Secure. Simple. Anymo Space is a secure and anonymous chat room for simple group chatting.">
+    <meta name="description"
+        content="Anymo Space - Anonymous. Secure. Simple. Anymo Space is a secure and anonymous chat room for simple group chatting.">
     <meta property="og:title" content="Anymo Space Room">
     <meta property="og:description" content="Join Anymo Chat Room for anonymous, secure, and simple chatting.">
     <meta property="og:image" content="https://anymo.skytup.com/anymo.png">
     <meta property="og:url" content="https://anymo.skytup.com">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/room.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8ZQT3XHMW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+
+        gtag("config", "G-Y8ZQT3XHMW");
+    </script>
 </head>
 
 <body>
@@ -25,6 +42,7 @@
         <div class="users-list" id="usersList">
             <!-- Users will be populated here -->
         </div>
+        <div class="room_qr"></div>
     </div>
 
     <div class="chat-container">
@@ -41,8 +59,7 @@
             <!-- Messages will be populated here -->
         </div>
         <div class="chat-input">
-            <input type="text" id="messageInput" placeholder="Type a message..." 
-                oninput="handleTyping()">
+            <input type="text" id="messageInput" placeholder="Type a message..." oninput="handleTyping()">
             <button onclick="sendMessage()">
                 <i class="fas fa-paper-plane"></i>
             </button>
@@ -54,12 +71,37 @@
         </div>
     </div>
 
-
-
     <script src="/socket.io/socket.io.js"></script>
     <script src="/script/notify.js"></script>
     <script src="/script/room.js"></script>
     <script>
+
+        var qrcode = new QRCode("qrcode");
+
+        function makeCode() {
+            var elText = document.getElementById("text");
+
+            if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+            }
+
+            qrcode.makeCode(elText.value);
+        }
+
+        makeCode();
+
+        $("#text").
+            on("blur", function () {
+                makeCode();
+            }).
+            on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    makeCode();
+                }
+            });
+
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = '';
