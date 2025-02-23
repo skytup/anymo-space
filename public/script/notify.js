@@ -24,7 +24,7 @@ function showNotification(title, summary) {
     // Create and display the notification
     const notification = new Notification(title, {
         body: summary,
-        icon: '/anymo.png' // Optional: Add an icon for the notification
+        icon: 'https://anymo.skytup.com/anymo.png' // Optional: Add an icon for the notification
     });
 
     // Optional: Add event listeners for the notification
@@ -33,6 +33,6 @@ function showNotification(title, summary) {
     };
 }
 
-export default notify;
+// export default notify;
 // Example usage
 // notify("New Message", "You have received a new message.");
