@@ -336,7 +336,7 @@
                             <strong>${room.roomName}</strong>
                             <div style="font-size: 0.8rem; color: #667781;">ID: ${room.roomId}</div>
                         </div>
-                        <button class="btn btn-secondary" onclick="rejoinRoom('${room.roomId}', '${room.roomName}', '${room.password}')">
+                        <button class="btn btn-secondary" onclick="rejoinRoom('${room.roomId}', '${room.roomName}')">
                             <i class="fas fa-sign-in-alt"></i>
                         </button>
                     `;
@@ -403,12 +403,8 @@
             });
         }
 
-        function rejoinRoom(roomId, roomName, password) {
-            const username = prompt('Enter your name to rejoin the room:');
-            if (username) {
-                socket.emit('joinRoom', { roomId, username, password });
-                saveToLocalStorage({ roomId, roomName, password, username });
-            }
+        function rejoinRoom(roomId, roomName) {
+            window.location.href = `/room.html?id=${roomId}`;
         }
 
         function showError(message) {
