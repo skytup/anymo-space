@@ -175,6 +175,7 @@ socket.on('userList', (data) => {
 socket.on('userJoined', (data) => {
     addSystemMessage(`${data.username} joined the chat`);
     console.log(data.username + ' joined the chat');
+    new Audio('/tone/join.mp3').play();
 });
 
 socket.on('userLeft', (data) => {
