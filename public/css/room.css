@@ -284,3 +284,8 @@ body {
 .btn {
     cursor: pointer;
 }
+
+
+image {
+    max-width: 100%;
+}
