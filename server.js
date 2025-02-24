@@ -3,6 +3,7 @@ import { Server } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import crypto from 'crypto';
+import encoder from 'he'
 
 // Use import.meta.url to determine the directory of the current module
 const __dirname = path.dirname(new URL(import.meta.url).pathname).replace(/^\/([a-zA-Z]):\//, '$1:/');
@@ -123,7 +124,7 @@ io.on('connection', (socket) => {
 
         const messageData = {
             id: crypto.randomBytes(8).toString('hex'),
-            message: data.message,
+            message: encoder.escape(data.message),
             username: user.name,
             timestamp: Date.now()
         };
