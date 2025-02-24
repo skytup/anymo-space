@@ -227,6 +227,7 @@ function initializeRoom() {
 socket.on('joined', (data) => {
     // Update room name
     document.getElementById('roomName').textContent = data.roomName;
+    document.getElementById('modalRoomName').textContent = data.roomName;
 
     // Display previous messages
     // data.messages.forEach(msg => {

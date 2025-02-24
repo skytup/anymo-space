@@ -1,6 +1,5 @@
-.join-qr img {
-    width: 30px;
-    height: 30px;
+.join-qr {
+    font-size: 30px;
     cursor: pointer;
 }
 #qrcode{
@@ -20,7 +19,7 @@
     background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
@@ -68,11 +67,11 @@
     font-size: 16px;
 }
 
-#modalQRCode {
+#modal_qr {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin: 20px 0px;
 }
 
 /* #qrcode img{

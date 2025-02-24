@@ -51,6 +51,7 @@
                 <i class="fas fa-sign-out-alt"></i> Leave
             </div>
             <div class="join-qr" title="Scan to Join" id="qrcode">
+                <i class="fa-solid fa-qrcode"></i>
             </div>
             <div class="mobile-toggle-users">
                 <i class="fa-solid fa-bars"></i>
@@ -76,10 +77,12 @@
         <div class="modal-content">
             <span class="close" onclick="modal('qrModal');">&times;</span>
             <h2 id="modalRoomName">Room Name</h2>
-            <p>Password</p>
-            <p>Room id</p>
-            <div id="modal_qr"></div>
-            <p>Scan the QR code to join the room</p>
+            <div>
+                <!-- <p>Password</p>
+                <p>Room id</p> -->
+                <div id="modal_qr"></div>
+                <p>Scan the QR code to join the room</p>
+            </div>
         </div>
     </div>
 
@@ -91,8 +94,6 @@
         let qr_modal = document.getElementById("qrModal");
 
         $(document).ready(function () {
-            // qrcode.makeCode(window.location.href);
-            new QRCode("qrcode").makeCode(window.location.href);
             new QRCode("modal_qr").makeCode(window.location.href);
         });
 
@@ -106,12 +107,12 @@
         });
 
         // Close the modal when clicking outside of the modal content
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == qr_modal) {
                 qr_modal.style.display = "none";
             }
         }
-        
+
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = '';
