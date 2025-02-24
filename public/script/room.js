@@ -68,7 +68,7 @@ function addMessage(data, type = 'received') {
         unreadMessages++;
         // updateUnreadBadge();
         (new Audio('/tone/swift.mp3')).play();
-        notify(localStorage.getItem(data.username), data.message);
+        notify(localStorage.getItem('user'), data.message);
     } else if (type === 'received') {
         (new Audio('/tone/received.mp3')).play();
     }
@@ -240,8 +240,7 @@ socket.on('joined', (data) => {
 
 socket.on('error', (data) => {
     alert(data.message);
-    localStorage.removeItem('recentRooms');
-    window.location.href = '/';
+    window.location.href = '/index.html';
 });
 
 // Initialize the room when page loads

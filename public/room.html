@@ -72,18 +72,38 @@
         </div>
     </div>
 
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalRoomName">Room Name</h2>
+            <p>Password</p>
+            <p>Room id</p>
+            <p>Scan the QR code to join the room</p>
+            <div id="modal_qr"></div>
+        </div>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/script/notify.js"></script>
     <script src="/script/room.js"></script>
     <script>
-
-        var qrcode = new QRCode("qrcode");
+        let qr_control = document.getElementById("qrcode");
+        let qr_modal = document.getElementById("qrModal");
 
         $(document).ready(function () {
-            qrcode.makeCode(window.location.href);
+            // qrcode.makeCode(window.location.href);
+            new QRCode("qrcode").makeCode(window.location.href);
+            new QRCode("modal_qr").makeCode(window.location.href);
         });
 
-      
+        modal = (e) => {
+            let modal = document.getElementById(e);
+            modal.style.display = modal.style.display == "flex" ? "none" : "flex";
+        }
+        qr_control.addEventListener("click", function () {
+            modal("qrModal");
+        });
+
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = '';
