@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
 
         socket.emit('passwordValid', {
             roomId: data.roomId,
-            roomName: encoder.escape(room.name),
+            roomName: room.name,
             username: encoder.escape(data.username) // Include username in the response
         });
     });
@@ -98,7 +98,7 @@ io.on('connection', (socket) => {
 
         // Emit room data to the joining user
         socket.emit('joined', {
-            roomName: encoder.escape(room.name),
+            roomName: room.name,
             messages: room.messages,
             users: Array.from(room.users.values())
         });
