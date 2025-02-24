@@ -74,7 +74,7 @@ function addMessage(data, type = 'received') {
         unreadMessages++;
         // updateUnreadBadge();
         (new Audio('/tone/swift.mp3')).play();
-        notify(data.username, data.message);
+        notify(removeHtml(data.username), data.message);
     } else if (type === 'received') {
         (new Audio('/tone/received.mp3')).play();
     }
