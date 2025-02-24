@@ -241,6 +241,8 @@ socket.on('joined', (data) => {
 
 socket.on('error', (data) => {
     alert(data.message);
+    // removing recent rooms when getting error
+    localStorage.removeItem('recentRooms');
     window.location.href = '/index.html';
 });
 
