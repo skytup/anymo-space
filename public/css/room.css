@@ -84,6 +84,16 @@ body {
     word-wrap: break-word;
 }
 
+.message * {
+    max-width: 100% !important;
+}
+
+.message img {
+    max-width: 100% !important;
+    border-radius: 10px;
+    margin: 5px auto;
+}
+
 .message.received {
     background: white;
     margin-right: auto;
