@@ -162,7 +162,7 @@ socket.on('stopTyping', () => {
 });
 
 socket.on('joined', (data) => {
-    document.getElementById('roomName').textContent = removeHtml(data.roomName);
+    document.getElementById('roomName').innerHTML = removeHtml(data.roomName);
     document.title = `(${removeHtml(data.roomName)}) Anymo Space | Skytup`;
 
     // Display previous messages
@@ -233,8 +233,8 @@ function initializeRoom() {
 // Socket event listeners
 socket.on('joined', (data) => {
     // Update room name
-    document.getElementById('roomName').textContent = removeHtml(data.roomName);
-    document.getElementById('modalRoomName').textContent = removeHtml(data.roomName);
+    document.getElementById('roomName').innerHTML = removeHtml(data.roomName);
+    document.getElementById('modalRoomName').innerHTML = removeHtml(data.roomName);
 
     // Display previous messages
     // data.messages.forEach(msg => {
