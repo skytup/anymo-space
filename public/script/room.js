@@ -36,9 +36,9 @@ function updateUsersList(users) {
     let username = localStorage.getItem('username');
 
     users.forEach(user => {
-        
+
         const userDiv = document.createElement('div');
-        if (user.name===username) {
+        if (user.name == username) {
             userDiv.style.backgroundColor = '#000';
             userDiv.style.color = '#fff';
         }
@@ -46,7 +46,7 @@ function updateUsersList(users) {
         userDiv.innerHTML = `
             <div class="user-status ${user.online ? 'online' : 'offline'}"></div>
             <i class="fas fa-user"></i>
-            <span>${user.name}</span>
+            <span>${removeHtml(user.name)}</span>
         `;
         usersList.appendChild(userDiv);
     });
@@ -62,7 +62,7 @@ function addMessage(data, type = 'received') {
     const time = new Date(data.timestamp).toLocaleTimeString();
 
     messageDiv.innerHTML = `
-        <div class="username">${data.username}</div>
+        <div class="username">${removeHtml(data.username)}</div>
         <div class="content">${data.message}</div>
         <div class="message-time">${time}</div>
     `;
@@ -162,8 +162,8 @@ socket.on('stopTyping', () => {
 });
 
 socket.on('joined', (data) => {
-    document.getElementById('roomName').textContent = data.roomName;
-    document.title = `(${data.roomName}) Anymo Space | Skytup`;
+    document.getElementById('roomName').textContent = removeHtml(data.roomName);
+    document.title = `(${removeHtml(data.roomName)}) Anymo Space | Skytup`;
 
     // Display previous messages
     data.messages.forEach(msg => {
@@ -172,7 +172,7 @@ socket.on('joined', (data) => {
 });
 
 socket.on('message', (data) => {
-    addMessage(data, data.username === username ? 'sent' : 'received');
+    addMessage(data, data.username == username ? 'sent' : 'received');
 });
 
 socket.on('userList', (data) => {
@@ -233,8 +233,8 @@ function initializeRoom() {
 // Socket event listeners
 socket.on('joined', (data) => {
     // Update room name
-    document.getElementById('roomName').textContent = data.roomName;
-    document.getElementById('modalRoomName').textContent = data.roomName;
+    document.getElementById('roomName').textContent = removeHtml(data.roomName);
+    document.getElementById('modalRoomName').textContent = removeHtml(data.roomName);
 
     // Display previous messages
     // data.messages.forEach(msg => {
@@ -250,7 +250,7 @@ socket.on('error', (data) => {
     alert(data.message);
     // removing recent rooms when getting error
     localStorage.removeItem('recentRooms');
-    window.location.href = '/index.html';
+    window.location.href = '/';
 });
 
 // Initialize the room when page loads
@@ -270,3 +270,17 @@ document.getElementById('messageInput').addEventListener('keypress', (event) => 
         sendMessage();
     }
 });
+
+
+function filter_data(inputString) {
+    return inputString
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+}
+
+function removeHtml(inputString) {
+    return inputString.replace(/<.*?>/gs, '');
+}

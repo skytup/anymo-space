@@ -100,10 +100,7 @@ io.on('connection', (socket) => {
         socket.emit('joined', {
             roomName: encoder.escape(room.name),
             messages: room.messages,
-            users: Array.from(room.users.values()).map(user => ({
-                ...user,
-                name: encoder.escape(user.name)
-            }))
+            users: Array.from(room.users.values())
         });
 
         // Notify others in the room
@@ -150,7 +147,7 @@ io.on('connection', (socket) => {
             userRooms.delete(socket.id);
 
             io.to(roomId).emit('userLeft', {
-                username: encoder.escape(user.name),
+                username: user.name,
                 timestamp: Date.now()
             });
 
