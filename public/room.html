@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://anymo.skytup.com">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/room.css">
-
+    <link rel="stylesheet" href="/css/qr.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
         integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -42,7 +42,6 @@
         <div class="users-list" id="usersList">
             <!-- Users will be populated here -->
         </div>
-        <div class="qrcode"></div>
     </div>
 
     <div class="chat-container">
@@ -50,6 +49,8 @@
             <h2 id="roomName">Chat Room</h2>
             <div class="btn btn-secondary" onclick="leaveRoom()">
                 <i class="fas fa-sign-out-alt"></i> Leave
+            </div>
+            <div class="join-qr" title="Scan to Join" id="qrcode">
             </div>
             <div class="mobile-toggle-users">
                 <i class="fa-solid fa-bars"></i>
@@ -82,16 +83,7 @@
             qrcode.makeCode(window.location.href);
         });
 
-        // $("#text").
-        //     on("blur", function () {
-        //         makeCode();
-        //     }).
-        //     on("keydown", function (e) {
-        //         if (e.keyCode == 13) {
-        //             makeCode();
-        //         }
-        //     });
-
+      
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = '';
