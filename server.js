@@ -76,8 +76,8 @@ io.on('connection', (socket) => {
 
         socket.emit('passwordValid', {
             roomId: data.roomId,
-            roomName: room.name,
-            username: data.username // Include username in the response
+            roomName: encoder.escape(room.name),
+            username: encoder.escape(data.username) // Include username in the response
         });
     });
 
@@ -98,9 +98,12 @@ io.on('connection', (socket) => {
 
         // Emit room data to the joining user
         socket.emit('joined', {
-            roomName: room.name,
+            roomName: encoder.escape(room.name),
             messages: room.messages,
-            users: Array.from(room.users.values())
+            users: Array.from(room.users.values()).map(user => ({
+                ...user,
+                name: encoder.escape(user.name)
+            }))
         });
 
         // Notify others in the room
@@ -147,7 +150,7 @@ io.on('connection', (socket) => {
             userRooms.delete(socket.id);
 
             io.to(roomId).emit('userLeft', {
-                username: user.name,
+                username: encoder.escape(user.name),
                 timestamp: Date.now()
             });
 
