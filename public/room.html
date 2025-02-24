@@ -78,8 +78,8 @@
             <h2 id="modalRoomName">Room Name</h2>
             <p>Password</p>
             <p>Room id</p>
-            <p>Scan the QR code to join the room</p>
             <div id="modal_qr"></div>
+            <p>Scan the QR code to join the room</p>
         </div>
     </div>
 
@@ -100,10 +100,18 @@
             let modal = document.getElementById(e);
             modal.style.display = modal.style.display == "flex" ? "none" : "flex";
         }
+
         qr_control.addEventListener("click", function () {
             modal("qrModal");
         });
 
+        // Close the modal when clicking outside of the modal content
+        window.onclick = function(event) {
+            if (event.target == qr_modal) {
+                qr_modal.style.display = "none";
+            }
+        }
+        
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = '';
