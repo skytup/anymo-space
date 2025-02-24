@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anymo Space Room | Skytup</title>
-    <meta name="description" content="Anymo Space - Anonymous. Secure. Simple. Anymo Space is a secure and anonymous chat room for simple group chatting.">
-    <meta property="og:title" content="Anymo Chat Room">
+    <title>Anymo Space | An ananymous chat space | Skytup</title>
+    <meta name="description"
+        content="Anymo Space - Anonymous. Secure. Simple. Anymo Space is a secure and anonymous chat room for simple group chatting.">
+    <meta property="og:title" content="Anymo Space ">
     <meta property="og:description" content="Join Anymo Chat Room for anonymous, secure, and simple chatting.">
     <meta property="og:image" content="https://anymo.skytup.com/anymo.png">
     <meta property="og:url" content="https://anymo.skytup.com">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/config.css">
     <link rel="stylesheet" href="/css/index.css">
 
 </head>
@@ -48,6 +50,31 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div class="footer-container">
+
+            <div class="footer-center">
+                <a href="/about" target="_blank">About</a>
+                <a href="/contributing" target="_blank">Contributing</a>
+                <a href="/contributing" target="_blank">GitHub</a>
+
+            </div>
+
+            <div class="footer-left">
+                <p>&copy; 2025 <a href="https://www.skytup.com" target="_blank">www.skytup.com</a></p>
+            </div>
+
+            <div class="footer-right">
+                <a href="https://github.com/skytup" target="_blank" class="fab fa-github"></a>
+                <a href="https://www.twitter.com/skythecoder" target="_blank" class="fab fa-twitter"></a>
+                <a href="https://www.instagram.com/skytupnet" target="_blank" class="fab fa-instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+
+    </style>
 
     <!-- Create Room Modal -->
     <div id="createRoomModal" class="modal">
@@ -186,8 +213,8 @@
             localStorage.setItem('username', username);
 
             // First verify the password
-            socket.emit('verifyPassword', { 
-                roomId, 
+            socket.emit('verifyPassword', {
+                roomId,
                 password,
                 username // Include username in verification
             });

@@ -33,9 +33,15 @@ if (!username) {
 function updateUsersList(users) {
     const usersList = document.getElementById('usersList');
     usersList.innerHTML = '';
+    let username = localStorage.getItem('username');
 
     users.forEach(user => {
+        
         const userDiv = document.createElement('div');
+        if (user.name===username) {
+            userDiv.style.backgroundColor = '#000';
+            userDiv.style.color = '#fff';
+        }
         userDiv.className = 'user-item';
         userDiv.innerHTML = `
             <div class="user-status ${user.online ? 'online' : 'offline'}"></div>
@@ -157,6 +163,7 @@ socket.on('stopTyping', () => {
 
 socket.on('joined', (data) => {
     document.getElementById('roomName').textContent = data.roomName;
+    document.title = `(${data.roomName}) Anymo Space | Skytup`;
 
     // Display previous messages
     data.messages.forEach(msg => {

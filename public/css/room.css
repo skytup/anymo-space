@@ -21,14 +21,14 @@ body {
 
 .sidebar-header {
     padding: 1rem;
-    background: #128C7E;
+    background: var(--primary-color);
     color: white;
 }
 
 .online-count {
     padding: 0.5rem 1rem;
     background: #dcf8c6;
-    color: #128C7E;
+    color: var(--primary-color);
     font-size: 0.9rem;
 }
 
@@ -48,7 +48,7 @@ body {
 }
 
 .user-item i {
-    color: #128C7E;
+    color: var(--primary-color);
 }
 
 .chat-container {
@@ -93,7 +93,7 @@ body {
 
 .message .username {
     font-size: 0.8rem;
-    color: #128C7E;
+    color: var(--primary-color);
     margin-bottom: 0.25rem;
 }
 
@@ -122,7 +122,7 @@ body {
 }
 
 .chat-input button {
-    background: #128C7E;
+    background: var(--primary-color);
     color: white;
     border: none;
     border-radius: 50%;
@@ -191,7 +191,7 @@ body {
 }
 
 .unread-messages {
-    background: #128C7E;
+    background: var(--primary-color);
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 8px;
