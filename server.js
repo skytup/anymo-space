@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
 
         socket.join(data.roomId);
         room.users.set(socket.id, {
-            name: data.username,
+            name: encoder.escape(data.username),
             online: true,
             joinedAt: Date.now()
         });
