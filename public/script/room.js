@@ -180,14 +180,14 @@ socket.on('userList', (data) => {
 });
 
 socket.on('userJoined', (data) => {
-    addSystemMessage(`${data.username} joined the chat`);
-    console.log(data.username + ' joined the chat');
+    addSystemMessage(`${removeHtml(data.username)} joined the chat`);
+    // console.log(data.username + ' joined the chat');
     new Audio('/tone/join.mp3').play();
 });
 
 socket.on('userLeft', (data) => {
-    addSystemMessage(`${data.username} left the chat`);
-    console.log(data.username + ' left the chat');
+    addSystemMessage(`${removeHtml(data.username)} left the chat`);
+    // console.log(data.username + ' left the chat');
 });
 
 function addSystemMessage(message) {
