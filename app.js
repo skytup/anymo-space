@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import { Server } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
@@ -5,6 +6,7 @@ import path from 'path';
 import crypto from 'crypto';
 import encoder from 'he'
 
+dotenv.config();
 // Use import.meta.url to determine the directory of the current module
 const __dirname = path.dirname(new URL(import.meta.url).pathname).replace(/^\/([a-zA-Z]):\//, '$1:/');
 
