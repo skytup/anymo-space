@@ -8,6 +8,7 @@ Anymo Space is a **100% anonymous** chat room application built with **Node.js**
 - **Real-time Chat**: Instant communication between users.
 - **Simple Interface**: Minimalistic and user-friendly interface.
 - **No Registration**: Simply join and chat — no sign-up needed.
+![image](https://github.com/user-attachments/assets/fb765387-4f34-4a29-8bc5-ccf4749a1803)
 
 ## Tech Stack
 
