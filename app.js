@@ -14,6 +14,14 @@ const app = express();
 const http = new Server(app);
 const io = new SocketIOServer(http);
 
+// Force HTTPS redirection for non-localhost requests
+app.use((req, res, next) => {
+  if (req.get('X-Forwarded-Proto') !== 'https' && req.hostname !== 'localhost' && req.hostname !== '127.0.0.1') {
+    return res.redirect(301, `https://${req.hostname}${req.url}`);
+  }
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 

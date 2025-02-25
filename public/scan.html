@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skytup QR Scanner</title>
+    <meta name="description" content="Scan QR codes quickly and easily with Skytup QR Scanner.">
+    <meta name="keywords" content="QR code, scanner, QR code scanner, Skytup">
+    <meta name="author" content="Skytup">
+    <meta property="og:title" content="Skytup QR Scanner">
+    <meta property="og:description" content="Scan QR codes quickly and easily with Skytup QR Scanner.">
+    <meta property="og:image" content="https://kinsta.com/wp-content/uploads/2019/03/kinsta-qr-code.png">
+    <meta property="og:url" content="https://project.skytup.com/scanner">
+    <meta property="og:type" content="website">
 
     <!-- We're using jsQR library instead which doesn't rely on worker imports -->
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
@@ -18,6 +26,14 @@
     </header>
 
     <div class="container">
+        <div class="result-container" id="resultContainer">
+            <h3>Scan Result</h3>
+            <p class="result-text" id="resultText"></p>
+            <div class="button-container">
+                <button id="copyButton" class="copy-button">Copy to Clipboard</button>
+                <button id="openLinkButton" class="copy-button success">Open Link</button>
+            </div>
+        </div>
         <div class="scanner-container">
             <video id="video"></video>
             <canvas id="canvas"></canvas>
@@ -46,14 +62,7 @@
             <label for="fileInput" class="file-label">Select Image</label>
         </div>
 
-        <div class="result-container" id="resultContainer">
-            <h3>Scan Result</h3>
-            <p class="result-text" id="resultText"></p>
-            <div class="button-container">
-                <button id="copyButton" class="copy-button">Copy to Clipboard</button>
-                <button id="openLinkButton" class="copy-button success">Open Link</button>
-            </div>
-        </div>
+
     </div>
 
     <footer>
