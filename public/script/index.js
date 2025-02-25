@@ -1,5 +1,10 @@
 const socket = io();
 
+
+function removeHtml(inputString) {
+    return inputString.replace(/<.*?>/gs, '');
+}
+
 // Local Storage Management
 function saveToLocalStorage(roomData) {
     let rooms = JSON.parse(localStorage.getItem('recentRooms') || '[]');
@@ -25,7 +30,7 @@ function displayRecentRooms() {
             roomElement.className = 'recent-room-item';
             roomElement.innerHTML = `
                 <div>
-                    <strong>${room.roomName}</strong>
+                    <strong>${removeHtml(room.roomName)}</strong>
                     <div style="font-size: 0.8rem; color: #667781;">ID: ${room.roomId}</div>
                 </div>
                 <button class="btn btn-secondary" onclick="rejoinRoom('${room.roomId}', '${room.roomName}', '${room.password}')">
