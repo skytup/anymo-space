@@ -10,6 +10,7 @@ let isPageVisible = true;
 const scrollBottom = document.getElementById('scroll-bottom');
 let isAtBottom = true;
 
+document.getElementById('room_id_modal').textContent = roomId;
 // Scroll handling
 messagesContainer.addEventListener('scroll', () => {
     const isNearBottom = messagesContainer.scrollHeight - messagesContainer.scrollTop - messagesContainer.clientHeight < 100;

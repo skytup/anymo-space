@@ -11,7 +11,7 @@
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const fileInput = document.getElementById('fileInput');
-
+        
         // Variables
         let stream = null;
         let canvasContext = canvas.getContext('2d', { willReadFrequently: true });
