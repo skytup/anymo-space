@@ -4,7 +4,8 @@ import { Server } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import crypto from 'crypto';
-import encoder from 'he'
+import encoder from 'he';
+import healthRouter from './health.js'; // Import health router
 
 dotenv.config();
 // Use import.meta.url to determine the directory of the current module
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+app.use(healthRouter); // Use health router
 
 // Add a root route to serve the index.html file
 app.get('/', (req, res) => {
