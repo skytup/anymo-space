@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 // Store room information in memory
-const rooms = new Map();
+export const rooms = new Map();
 const userRooms = new Map();
 
 function generateRoomId() {
