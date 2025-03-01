@@ -284,7 +284,11 @@ function filter_data(inputString) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#x27;');
 }
-
 function removeHtml(inputString) {
-    return inputString.replace(/<.*?>/gs, '');
+    // Check if inputString is a valid string
+    if (typeof inputString === 'string') {
+        return inputString.replace(/<.*?>/gs, ''); // Remove HTML tags
+    }
+    // If inputString is not a string, return it as is (or handle as needed)
+    return inputString;
 }
