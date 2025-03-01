@@ -62,9 +62,12 @@ function addMessage(data, type = 'received') {
 
     const time = new Date(data.timestamp).toLocaleTimeString();
 
+    // Replace links with anchor tags
+    const messageContent = data.message.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+
     messageDiv.innerHTML = `
         <div class="username">${removeHtml(data.username)}</div>
-        <div class="content">${data.message}</div>
+        <div class="content">${messageContent}</div>
         <div class="message-time">${time}</div>
     `;
 
