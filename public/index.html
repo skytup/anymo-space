@@ -14,6 +14,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/config.css">
     <link rel="stylesheet" href="/css/index.css">
+     <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8ZQT3XHMW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "G-Y8ZQT3XHMW");
+    </script>
+
 
 </head>
 
@@ -41,7 +50,7 @@
                 <button class="btn btn-secondary" onclick="showJoinRoom()">
                     <i class="fas fa-sign-in-alt"></i> Join Room
                 </button>
-                <button class="btn btn-third" onclick="window.open('https://project.skytup.com/scan/')">
+                <button class="btn btn-third" onclick="window.open('/scan/')">
                     <i class="fas fa-qrcode"></i> Scan to Join
                 </button>
             </div>
