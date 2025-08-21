@@ -16,8 +16,6 @@ Anymo Space is a **100% anonymous** chat room application built with **Node.js**
 - **WebSocket**: For real-time communication
 - **Frontend**: HTML, CSS (lightweight)
 
-## Installation
-
 ### Prerequisites
 
 Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
